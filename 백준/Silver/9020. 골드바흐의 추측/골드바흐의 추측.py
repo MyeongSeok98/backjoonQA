@@ -1,36 +1,31 @@
 import sys
 
-input = sys.stdin.readline
+def isPrime(num):
+    if num == 1:
+        return False
 
+    if num == 2:
+        return True
+
+    for i in range(2, num):
+        if num % i == 0:
+            return False
+    
+    return True
+        
+input = sys.stdin.readline
 n = int(input())
 
-primes = []
-for i in range(2, 9997):
-    isNotPrime = False
-    for j in range(2, i):
-        if(i % j == 0):
-            isNotPrime = True
-            break
-    if(not isNotPrime):
-        primes.append(i)
-
-for a in range(0, n):
+for i in range(n):
     num = int(input())
-    
-    minGap = 10001
-    minGapPrimeA = 0
-    minGapPrimeB = 0
-    for primeA in primes:
-        primeB = num - primeA
-        if(primeA > primeB):
+    primeA = num // 2
+    primeB = primeA
+    while(primeA != num):
+        if(isPrime(primeA) and isPrime(primeB)):
+            print(primeB, primeA)
             break
-        if((primeB in primes) and (minGap > primeB - primeA)):
-            minGap = primeB - primeA
-            minGapPrimeA = primeA
-            minGapPrimeB = primeB
-    
-    print(minGapPrimeA, minGapPrimeB)
-    
-    
+        primeA+=1
+        primeB-=1
+        
 
 
