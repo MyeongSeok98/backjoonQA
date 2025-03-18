@@ -16,16 +16,9 @@ def move_range(villages: MutableSequence, n : int, m : int):
                 return
             ## 아니면 visit[i] -> visit[i+1] 일 떄 거리를 더함 
             sum+= W[visit[i]][visit[i+1]]
-        ##
-        ##for v in visit:
-        ##    print(f"{v} -> ", end="")
         if(W[visit[m-1]][visit[0]] == 0):
-            ##print()
             return
         sum += W[visit[m-1]][visit[0]]
-        ##print(f"{visit[0]} : ", end="")
-        ##print(sum)
-        ##
         global minValue
         minValue = min(minValue, sum)
         return
