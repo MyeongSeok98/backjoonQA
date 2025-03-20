@@ -6,7 +6,7 @@ count=1
 def set(n):
     if n<10:
         a=n
-        b=(n*10)%10
+        b=0
         return (n*10)+((a+b)%10)
     else :
         a=n//10
