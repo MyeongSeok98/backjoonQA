@@ -16,6 +16,7 @@ if __name__ == '__main__':
         animalXY.append([animalX, animalY])
 
     firePlaceX.sort()
+    animalXY.sort()
     # print(f"사격 위치들 X좌표 : {firePlaceX}")
     # print(f"사정거리 : {fireRange}")
     # print(f"노루들 [X,Y]좌표 : {animalXY}")
@@ -25,6 +26,7 @@ if __name__ == '__main__':
     for i in range(len(animalXY)):
         start = 0
         last = firePlaceNum-1
+        sameX = False
         closeX = 0
         if animalXY[i][0] < firePlaceX[0]:
             closeX = firePlaceX[0]
@@ -40,11 +42,7 @@ if __name__ == '__main__':
                 if firePlaceX[middle] < animalXY[i][0]:
                     start = middle+1
             # print(f"{animalXY[i]}일 때, {firePlaceX[start]}, {firePlaceX[last]}")
-            if start >= firePlaceNum:
-                closeX = firePlaceX[start]
-            elif last < 0:
-                closeX = firePlaceX[start]
-            elif abs(animalXY[i][0] - firePlaceX[start]) < abs(animalXY[i][0] - firePlaceX[last]):
+            if abs(animalXY[i][0] - firePlaceX[start]) < abs(animalXY[i][0] - firePlaceX[last]):
                 closeX = firePlaceX[start]
             else:
                 closeX = firePlaceX[last]
@@ -68,4 +66,5 @@ if __name__ == '__main__':
 ## 마지막 사대까지 사정거리 안의 동물을 죽이고
 ## 킬카운트를 출력
 
+## 큰 이등변 삼각형을 두개의 이등변삼각형으로 나눔
 
