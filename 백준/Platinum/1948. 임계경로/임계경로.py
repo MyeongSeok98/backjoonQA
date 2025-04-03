@@ -1,59 +1,54 @@
 import sys
 from collections import deque
 input = sys.stdin.readline
-
 adj = [[] for _ in range(10005)]
 adj2 = [[] for _ in range(10005)]
-po = [-float('inf') for _ in range(10005)]  # 초기값을 -inf로 설정
+po = [-1 for _ in range(10005)]
 indegree = [0 for _ in range(10005)]
-outdegree = [0 for _ in range(10005)]
-
-if __name__ == '__main__':
+if __name__ =='__main__':
+    
     n = int(input())
     m = int(input())
 
-    for _ in range(m):
+    for i in range(m):
         u, v, c = map(int, input().split())
-        adj[u].append((v, c))
-        adj2[v].append((u, c))
-        indegree[v] += 1
-        outdegree[u] += 1
 
-    start, end = map(int, input().split())
+        adj[u].append((v,c))
+        adj2[v].append((u,c))
+        indegree[v] +=1
 
-    # 위상 정렬을 위한 큐
+    start, end= map(int, input().split())
+    
     q = deque()
-    q.append(start)
-    po[start] = 0  # 시작 노드의 가중치는 0으로 설정
 
-    # 최장 경로 찾기 (위상 정렬)
+    q.append(start)
+    po[start] = 0
+
     while q:
         cur = q.popleft()
-
+        
         for nxt, weight in adj[cur]:
+            indegree[nxt]-=1
             newWeight = weight + po[cur]
             if po[nxt] < newWeight:
                 po[nxt] = newWeight
-            indegree[nxt] -= 1
-            if indegree[nxt] == 0:
+            if indegree[nxt]== 0:
                 q.append(nxt)
 
     cnt = 0
-    visited = set()  
+    s = set()
     q2 = deque()
     q2.append(end)
-    visited.add(end)
-
+    vis = set()
+    vis.add(end)
     while q2:
         cur = q2.popleft()
 
         for nxt, weight in adj2[cur]:
-            outdegree[nxt] -= 1
             if po[nxt] == po[cur] - weight:
-                cnt += 1
-                if nxt not in visited:  # 중복 방지
-                    visited.add(nxt)
-                    q2.append(nxt)
-
+                cnt+=1
+                if nxt not in vis:
+                   vis.add(nxt)
+                   q2.append(nxt)
     print(po[end])
     print(cnt)
