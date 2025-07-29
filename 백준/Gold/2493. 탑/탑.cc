@@ -1,26 +1,38 @@
-// Authored by : twinkite
-// Co-authored by : BaaaaaaaaaaarkingDog
-// http://boj.kr/44465623025e452bba5feb80b0b0e60e
-#include <bits/stdc++.h>
+#include <bits/stdc++.h> 
 using namespace std;
+
 #define X first
 #define Y second
-
-int N;
-stack<pair<int,int>> tower;
+int towers[500000];
+int answers[500000];
 
 int main() {
-  ios_base::sync_with_stdio(0);
-  cin.tie(0);
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	stack<pair<int, int>> tower;
 
-  cin >> N;  
-  tower.push({100000001, 0});
-  for (int i = 1; i <= N; i++) {
-    int height;
-    cin >> height;
-    while (tower.top().X < height)
-      tower.pop();    
-    cout << tower.top().Y << " ";
-    tower.push({height, i});      
-  }
+	int n;
+	cin >> n;
+
+	for (int i = 0; i < n; i++) {
+		cin >> towers[i];
+	}
+
+	for (int i = 0; i < n; i++) {
+		// tower.push({ towers[i - 1], i});
+
+		while (!tower.empty() && tower.top().X < towers[i]) {
+			tower.pop();
+		}
+		if (tower.empty()) {
+			answers[i] = 0;
+		}
+		else {
+			answers[i] = tower.top().Y;
+		}
+		tower.push({ towers[i], i+1});
+	}
+
+	for (int i = 0; i < n; i++)
+		cout << answers[i] << " ";
 }
