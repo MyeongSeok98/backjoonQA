@@ -1,33 +1,29 @@
 import sys
-
 input = sys.stdin.readline
 
+n = int(input())
 
-if __name__ == '__main__':
-    N = int(input())
-    myCard = list(map(int, input().split()))
+cards = list(map(int, input().split()))
 
-    M = int(input())
-    yourCard = list(map(int, input().split()))
+m = int(input())
+answer = [0 for _ in range(m)]
 
-    myCard.sort()
+isNot = list(map(int, input().split()))
 
-    for i in range(M):
-        number = yourCard[i]
-        first = 0
-        last = N-1
-        findCard = False
-        while last >= first:
-            mid = (first + last) // 2
-            if myCard[mid] == number:
-                findCard = True
-                break
-            elif myCard[mid] < number:
-                first = mid+1
-            elif myCard[mid] > number:
-                last = mid-1
+cards.sort()
 
-        if findCard:
-            print(1, end=" ")
+for i in range(m):
+    left = 0
+    right = len(cards) - 1
+
+    while(left <= right):
+        middle = (left + right) // 2
+        if(cards[middle] == isNot[i]):
+            answer[i] = 1
+            break
+        if(cards[middle] < isNot[i]):
+            left = middle + 1
         else:
-            print(0, end=" ")
+            right = middle - 1
+
+print(*answer)
